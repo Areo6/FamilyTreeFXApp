@@ -13,11 +13,13 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  * @author Developer
  */
+@ServiceProvider(service=FamilyTreeManager.class)
 public class FamilyTreeManagerFXImpl implements FamilyTreeManager {
      private final ObservableMap<Long,Person> map=FXCollections.observableHashMap();
 
@@ -60,10 +62,12 @@ public class FamilyTreeManagerFXImpl implements FamilyTreeManager {
 
     @Override
     public List<Person> getAllPeople() {
-        List<Person> copyList = new ArrayList<>();
-         // map.values().stream().forEach((p) -> copyList.add(new Person(p)));
-           
+        final List<Person> copyList=new ArrayList<>();
+            map.values().stream().forEach((p) ->
+            copyList.add(new Person(p)));
         return copyList;
+               
+      
     }
     
 }
